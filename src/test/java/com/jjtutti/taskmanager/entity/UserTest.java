@@ -3,6 +3,7 @@ package com.jjtutti.taskmanager.entity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.jjtutti.taskmanager.repository.UserRepository;
 
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
-
+@ActiveProfiles("test")
 @SpringBootTest
 @Transactional
 public class UserTest {

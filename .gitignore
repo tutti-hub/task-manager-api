@@ -7,6 +7,8 @@ build/
 
 ###
 .env
+*PRIVATE*.*
+DOCUMENTS/
 
 ### STS ###
 .apt_generated

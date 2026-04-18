@@ -7,14 +7,15 @@ import org.springframework.stereotype.Service;
 import com.jjtutti.taskmanager.dto.UserRequestDto;
 import com.jjtutti.taskmanager.dto.UserResponseDto;
 import com.jjtutti.taskmanager.entity.User;
+import com.jjtutti.taskmanager.exceptions.UserNotFoundException;
 import com.jjtutti.taskmanager.mapper.UserMapper;
 import com.jjtutti.taskmanager.repository.UserRepository;
 
 @Service
 public class UserService {
     
-    private UserRepository userRepository;
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -27,13 +28,14 @@ public class UserService {
         return userMapper.toUserResponseDto(newUser);
     }
     
-    public List<UserResponseDto> getAll() {
+    public List<UserResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(userMapper::toUserResponseDto).toList();
     }
 
     public UserResponseDto getUserById(Long id) {
-        return userRepository.findById(id).map(userMapper::toUserResponseDto).orElse(null);         
+        var user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id)); 
+        return userMapper.toUserResponseDto(user);         
     }    
 
 }

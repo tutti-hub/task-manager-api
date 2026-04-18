@@ -14,6 +14,6 @@ public class UserMapper {
     }
 
     public User fromUserRequestDto(UserRequestDto userDto) {
-        return new User(userDto.email(), userDto.name(), userDto.createdOn());
+        return new User(userDto.email(), userDto.name());
     }
 }

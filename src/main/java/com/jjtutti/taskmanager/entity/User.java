@@ -3,14 +3,14 @@ package com.jjtutti.taskmanager.entity;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -20,25 +20,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Email
     @Column(nullable = false, unique = true)
     private String email;
     
-    @NotBlank
     private String name;
-    
+  
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDate createdOn;
 
     protected User() {}
 
-    public User (String email, String name) {
-        this(email, name, LocalDate.now());
-    }
-
-    public User(String email, String name, LocalDate createdOn) {
+    public User(String email, String name) {
         setEmail(email);
         setName(name);
-        this.createdOn = createdOn;
     }
 
     public Long getId() {
@@ -50,9 +45,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        //TODO: validation
         this.email = email;
-        
     }
     
     public String getName() {
@@ -60,7 +53,6 @@ public class User {
     }
 
     public void setName(String name) {
-        //TODO: validation
         this.name = name;
     }
 
@@ -82,7 +74,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User:{id=" + id +
+        return "User{id=" + id +
         ", email=" + email +
         ", name=" + name +
         ", createdOn=" + createdOn + "}";

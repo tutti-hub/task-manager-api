@@ -1,14 +1,18 @@
 package com.jjtutti.taskmanager.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jjtutti.taskmanager.dto.UserRequestDto;
 import com.jjtutti.taskmanager.dto.UserResponseDto;
 import com.jjtutti.taskmanager.service.UserService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,20 +30,18 @@ public class UserController {
     }
         
     @GetMapping
-    public List<UserResponseDto> getUsers() {
-        return userService.getAll();
+    public List<UserResponseDto> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public UserResponseDto getMethodName(@PathVariable("id") Long id) {
+    public UserResponseDto getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
   
     @PostMapping
-    public UserResponseDto createUser(@RequestBody UserRequestDto userDto) {
-        System.out.println("controller insert ****************");
-        System.out.println(userDto);
-        System.out.println("controller insert ****************");
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponseDto createUser(@RequestBody @Valid UserRequestDto userDto) {
         return userService.createUser(userDto);
     }
 

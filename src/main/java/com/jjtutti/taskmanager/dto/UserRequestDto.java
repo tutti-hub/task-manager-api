@@ -1,7 +1,8 @@
 package com.jjtutti.taskmanager.dto;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-public record UserRequestDto(String email, String name, LocalDate createdOn) {
+public record UserRequestDto(@NotBlank @Email String email, @NotBlank String name) {
 
 }

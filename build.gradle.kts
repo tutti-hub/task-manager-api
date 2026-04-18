@@ -26,7 +26,14 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	
 	testImplementation("org.assertj:assertj-core:3.27.7")
+
+  	compileOnly("org.projectlombok:lombok")
+  	annotationProcessor("org.projectlombok:lombok")
+  	testCompileOnly("org.projectlombok:lombok")
+  	testAnnotationProcessor("org.projectlombok:lombok")
+
 }
 
 tasks.withType<Test> {

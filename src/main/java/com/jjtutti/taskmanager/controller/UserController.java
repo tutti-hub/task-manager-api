@@ -3,21 +3,17 @@ package com.jjtutti.taskmanager.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.jjtutti.taskmanager.dto.UserRequestDto;
 import com.jjtutti.taskmanager.dto.UserResponseDto;
 import com.jjtutti.taskmanager.service.UserService;
-
 import jakarta.validation.Valid;
-
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -30,8 +26,8 @@ public class UserController {
     }
         
     @GetMapping
-    public List<UserResponseDto> getAllUsers() {
-        return userService.getAllUsers();
+    public Page<UserResponseDto> getAllUsers(Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 
     @GetMapping("/{id}")
@@ -44,5 +40,4 @@ public class UserController {
     public UserResponseDto createUser(@RequestBody @Valid UserRequestDto userDto) {
         return userService.createUser(userDto);
     }
-
 }

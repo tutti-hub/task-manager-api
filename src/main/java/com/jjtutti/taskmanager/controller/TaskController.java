@@ -1,7 +1,7 @@
 package com.jjtutti.taskmanager.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.jjtutti.taskmanager.dto.TaskRequestDto;
 import com.jjtutti.taskmanager.dto.TaskResponseDto;
 import com.jjtutti.taskmanager.service.TaskService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -34,8 +32,8 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskResponseDto> getAllTasks() {
-        return taskService.getAllTasks();
+    public Page<TaskResponseDto> getAllTasks(Pageable pageable) {
+        return taskService.getAllTasks(pageable);
     }
 
     @GetMapping("/{id}")

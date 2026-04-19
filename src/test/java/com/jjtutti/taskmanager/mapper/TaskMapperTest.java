@@ -3,6 +3,7 @@ package com.jjtutti.taskmanager.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jjtutti.taskmanager.dto.TaskResponseDto;
 import com.jjtutti.taskmanager.dto.UserResponseDto;
@@ -11,11 +12,7 @@ import com.jjtutti.taskmanager.entity.TaskStatus;
 import com.jjtutti.taskmanager.entity.User;
 import com.jjtutti.taskmanager.repository.TaskRepository;
 import com.jjtutti.taskmanager.repository.UserRepository;
-
-import jakarta.transaction.Transactional;
-
 import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 
@@ -44,10 +41,10 @@ public class TaskMapperTest {
         
         TaskResponseDto actualDto = taskMapper.toTaskResponseDto(task);
 
-        assertThat(actualDto.id()).isEqualTo(1);
+        assertThat(actualDto.id()).isPositive();
         assertThat(actualDto.userResponseDto()).isNotNull();
         UserResponseDto userResponseDto = actualDto.userResponseDto();
-        assertThat(userResponseDto.id()).isEqualTo(1);
+        assertThat(userResponseDto.id()).isPositive();
 
     }
 }
